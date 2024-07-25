@@ -1,0 +1,144 @@
+{% extends 'a_base.html' %}
+{% block include %}
+{% load static %}
+   <link rel="stylesheet" href="{% static 'css/items.css' %}">
+   <script src="{% static 'js/items.js' %}"></script>
+{% endblock %}
+<body>
+    {% block main %}
+       <section class="sec sec1">
+            <h2>Products</h2>
+            <div class="product-list list">
+                <table>
+                    <tr>
+                        <th>Product id</th>
+                        <th>Product Name</th>
+                    </tr>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{product.product_id}}</td>
+                        <td>{{product.name}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="m-products">
+                <button class="add" id="add-prod"><i class="fas fa-plus"></i> product</button>
+                <button class="del" id="del-prod"><i class="fas fa-trash"></i> product</button>
+            </div>
+       </section>
+       <section class="sec sec2">
+            <h2>Items</h2>
+            <div class="item-list list">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Thumbnail</th>
+                        <th>Name</th>
+                        <th>Size</th>
+                        <th>Color</th>
+                        <th>Stock</th>
+                        <th>Price</th>
+                    </tr>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{item.pk}}</td>
+                        <td><img src="{{item.f1.url}}" alt="First Item Image"></td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.size}}</td>
+                        <td>{{item.color}}</td>
+                        <td>{{item.stock}}</td>
+                        <td>{{item.price}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="m-products">
+                <button class="add" id="add-item"><i class="fas fa-plus"></i> item</button>
+                <button class="del" id="del-item"><i class="fas fa-trash"></i> item</button>
+            </div>
+       </section>
+    </main>
+    <!-- I create form modals for creation and deletion of both products and items by the business admin. -->
+     <!-- Product form -->
+     <form method="post" class="add-modal" id="add-prod-modal" action="{% url 'add-prod' %}">
+        <h3>Business Name</h3>
+        <h4>Add a product. (This is a category where some or all your items belongs to.)</h4>
+        {{prod_form.name}}
+        {% csrf_token %}
+        <button type="submit"><i class="fas fa-create"></i> Create Product</button>
+     </form>
+     <!-- Item form -->
+     <form method="post" class="add-modal" id="add-item-modal" action="{% url 'add-item' %}" enctype="multipart/form-data">
+        <h3>Business Name</h3>
+        <h4>Add an item related to a particular product</h4>
+        {% csrf_token %}
+        {{item_form.f1}}
+        {{item_form.f2}} 
+        {{item_form.f3}}
+        {{item_form.product}}
+        <h4>Add item images</h4>
+        <div class="images">
+            <div class="image" id="img1"><i class="fas fa-plus"></i></div>
+            <div class="image" id="img2"><i class="fas fa-plus"></i></div>
+            <div class="image" id="img3"><i class="fas fa-plus"></i></div>
+        </div>
+        {{item_form.name}}
+        {{item_form.price}}
+        {{item_form.stock}}
+        {{item_form.color}}
+        {{item_form.size}}
+        <button type="submit"><i class="fas fa-create"></i> Create Product</button>
+     </form>
+
+
+     <!-- I create form modals for deletion of both products and items by the business admin. -->
+      <form method="post" class="del-modal" id="del-prod-modal" action="{% url 'del-prod' %}">
+        <h2>Business Name</h2>
+        <table>
+            <tr>
+                <th>Select</th>
+                <th>Product id</th>
+                <th>Name</th>
+            </tr>
+            {% for product in products %}
+            <tr>
+                <td><input type="checkbox" value="{{product.product_id}}" name="products"></td>
+                <td>{{product.product_id}}</td>
+                <td>{{product.name}}</td>
+            </tr>
+            {% endfor %}
+            {% csrf_token %}
+        </table>
+        <button type="submit"><i class="fas fa-trash"></i> Delete Selected Products</button>
+      </form>
+      <form method="post" class="del-modal" id="del-item-modal" action="{% url 'del-item' %}">
+        <h2>{{business.name}}</h2>
+        <table>
+            <tr>
+                <th>Select</th>
+                <th>Thumbnail</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Color</th>
+                <th>Stock</th>
+                <th>Price</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td><input type="checkbox" value="{{item.item_id}}" name="items"></td>
+                <td><img src="{{item.f1.url}}" alt="First Item Image"></td>
+                <td>{{item.name}}</td>
+                <td>{{item.size}}</td>
+                <td>{{item.color}}</td>
+                <td>{{item.stock}}</td>
+                <td>{{item.price}}</td>
+            </tr>
+            {% endfor %}
+            {% csrf_token %}
+        </table>
+        <button type="submit"><i class="fas fa-trash"></i> Delete Selected Products</button>
+      </form>
+    </main>
+    {% endblock %}
+</body>

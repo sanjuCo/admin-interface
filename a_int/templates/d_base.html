@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/a_base.css' %}">
+    <script src="{% static 'js/a_base.js' %}"></script>
+    {% block include %}{% endblock %}
+    {% block title %}{% endblock %}
+</head>
+<body>
+    {% block extend %}
+    <header>
+        <img src="https://th.bing.com/th/id/OIP.Aiu21-rO96njlh2v4EEc4wHaEK?rs=1&pid=ImgDetMain" alt="Business Logo">
+        <h1>Business Name</h1>
+        <div class="extras">
+            <a href="#">logout</a>
+            <a href="#" class="feedback">Feedback</a>
+            <a href="#">Documentation</a>
+        </div>
+    </header>
+    <main>
+        <form class="feedback-form" method="post" id="feedback-form">
+            <h3>Business Name!</h3>
+            <textarea placeholder="Enter your feedback here..."></textarea>
+            <button type="submit"><i class="fas fa-submit"></i> Send Feedback</button>
+        </form>
+    {% endblock %}
+    {% block main %}
+    {% endblock %}
+</body>
+</html>

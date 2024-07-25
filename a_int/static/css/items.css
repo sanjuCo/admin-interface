@@ -1,0 +1,186 @@
+/* I work on the two sections */
+main .sec{
+    height: 80vh;
+    width: 49%;
+    margin-left: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #95a5a6;
+    padding: 10px 20px;
+}
+main .sec div{
+    width: 100%;
+    text-align: center;
+}
+main .sec .list{
+    height: 60vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    text-align: left;
+}
+th{
+    padding: 5px;
+}
+th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+td{
+    padding: 0 5px;
+}
+td:nth-child(2){
+    text-align: center;
+}
+td img{
+    height: 50px;
+    width: 50px;
+}
+th{
+    background-color: #2c3e50;
+    color: #ffffff;
+    font-weight: bold;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+    color: #2c3e50;
+}
+tr:hover{
+    background-color: #f1f1f1;
+    color: #2c3e50;
+}
+main .sec div button{
+    width: 40%;
+    height: 30px;
+    color: #ffffff;
+    border: none;
+    transition: all 0.3s;
+}
+main .sec div button:hover{
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.3s;
+}
+
+main .sec div .add{
+    background-color: #27ae60;
+}
+main .sec div .del{
+    background-color: #e74c3c;
+}
+
+
+/* I style the form modals for creation and deletion of both products and items. */
+.add-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2c3e50;
+    color: #ffffff;
+    width: 30%;
+    padding: 0 20px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3vh;
+}
+#add-prod-modal{
+    height: 50vh;
+}
+#add-item-modal{
+    height: 90vh;
+}
+.add-modal select, .add-modal input, .add-modal button{
+    height: 25px;
+    padding: 0 5px;
+}
+.add-modal input[type='file']{
+    display: none;
+}
+.add-modal .images{
+    height: 12vh;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2%;
+    align-items: center;
+}
+.add-modal .images .image{
+    width: 32%;
+    height: 100%;
+    background-color: #95a5a6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+.add-modal .images .image img{
+    height: 100%;
+    width: 100%;
+}
+.add-modal .images .image:hover{
+    cursor: pointer;
+    color: #000000;
+}
+.add-modal button{
+    width: 50%;
+    color: #ffffff;
+    background-color: #e67e22;
+    border: none;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+.add-modal button:hover{
+    cursor: pointer;
+    border: 1px solid inherit;
+}
+
+/* Del forms for both products and items */
+.del-modal{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 70vh;
+    transform: translate(-50%, -50%);
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 20px 10px;
+    font-size: 18px;
+    background-color: #2c3e50;
+    color: #ffffff;
+}
+#del-prod-modal{
+    width: 22%;
+}
+.del-modal table{
+    height: 50vh;
+    overflow: auto;
+    display: block;
+}
+.del-modal input[type='checkbox']{
+    height: 20px;
+    width: 20px;
+}
+.del-modal button{
+    height: 30px;
+    width: 60%;
+    background-color: #e67e22;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+}
+.del-modal button:hover{
+    cursor: pointer;
+    border: 1px solid #2c3e50;
+}

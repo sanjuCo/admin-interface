@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/a_base.css' %}">
+    <script src="{% static 'js/a_base.js' %}"></script>
+    {% block include %}{% endblock %}
+    {% block title %}{% endblock %}
+</head>
+<body>
+    {% block extend %}
+    <header>
+        <img src="{{business.logo.url}}" alt="Business Logo">
+        <h1>{{business.name}}</h1>
+        <div class="extras">
+            <a href="{% url 'logout' %}">logout</a>
+            <a href="#" class="feedback">Feedback</a>
+            <a href="{% url 'documentation' %}">Documentation</a>
+        </div>
+    </header>
+    <main>
+        <!-- Navigation sidebar -->
+        <aside>
+            <div class="navs">
+                <a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="{% url 'items' %}"><i class="fas fa-plus-circle"></i> Manage Items</a>
+                <a href="{% url 'transactions' %}"><i class="fas fa-exchange-alt"></i> Transactions</a>
+                <a href="#" class="withdraw"><i class="fas fa-arrow-down"></i> Withdraw</a>
+                <a href="{% url 'stats' %}"><i class="fas fa-chart-bar"></i> Stats</a>
+            </div>
+            <div class="profile">
+                <div class="profile-modal">
+                    <a href="#"><i class="fas fa-eye"></i> View profile</a>
+                    <a href="#"><i class="fas fa-user-edit"></i> Edit profile</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> logout</a>
+                </div>
+                <a href="#" id="profile"><i class="fas fa-user"></i> profile</a>
+            </div>
+        </aside>
+        <!-- Withdraw modal -->
+        <section class="withdraw-modal">
+            <div class="logo-business">
+                <img src="{{business.logo.url}}" alt="business logo">
+                <h3>{{business.name}}</h3>
+            </div>
+            <div class="logo-business">
+                <img src="https://th.bing.com/th/id/OIP.nKIrh6YPudyBQwT4wIUXCAHaFa?rs=1&pid=ImgDetMain" alt="mpesa logo">
+                <h3>Mpesa</h3>
+            </div>
+            <form method="post">
+                <input type="text" placeholder="Enter the amount you want to withdraw...">
+                <button><i class="fas fa-money-bill-wave"></i> Withdraw</button>
+            </form>
+        </section>
+        <form class="feedback-form" method="post" id="feedback-form">
+            <h3>{{business.name}}</h3>
+            <textarea placeholder="Enter your feedback here..."></textarea>
+            <button type="submit"><i class="fas fa-submit"></i> Send Feedback</button>
+        </form>
+    {% endblock %}
+    {% block main %}
+    {% endblock %}
+</body>
+</html>

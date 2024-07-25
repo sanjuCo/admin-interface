@@ -1,0 +1,44 @@
+{% extends 'a_base.html' %}
+{% block include %}
+{% load static %}
+   <link rel="stylesheet" href="{% static 'css/dashboard.css'%}">
+   <script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
+<body>
+    {% block main %}
+        <section>
+            <div class="greetings">
+                <span><h2>Welcome to your dashboard, {{admin.username}}!</h2></span>
+            </div>
+            <div class="intros">
+                <h4>Thankyou for trusting us. Manage your items...</h4>
+                <a href="{% url 'items' %}">Manage Items</a>
+            </div>
+            <div class="intros">
+                <h4>Inspect transactions made to you and ones your withdrawals...</h4>
+                <a href="{% url 'transactions' %}">Transactions</a>
+            </div> 
+            <div class="intros">
+                <h4>Withdraw money instantly just with a few steps...</h4>
+                <a href="#" class="withdraw"><i class="fas fa-arrow-down"></i> Withdraw</a>
+            </div>
+            <div class="intros">
+                <h4>View your business statistics to help you in decision making...</h4>
+                <a href="{% url 'stats' %}">Stats</a>
+            </div>
+            <div class="intros">
+                <h4>Give us your honest feedback...</h4>
+                <a href="#" class="feedback">Feedback</a>
+            </div>
+            <div class="intros">
+                <h4>View your business statistics to help you in decision making...</h4>
+                <a href="#">Stats</a>
+            </div>
+            <div class="contacts">
+                <a href="#"><i class="fab fa-whatsapp"></i> Text us on whatsApp</a>
+                <a href="#"><i class="fas fa-envelope"></i> Send us an email</a>
+            </div>
+        </section>
+    </main>
+    {% endblock %}
+</body>
