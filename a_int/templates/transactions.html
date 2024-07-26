@@ -1,0 +1,101 @@
+{% extends 'a_base.html' %}
+{% block include %}
+{% load static %}
+   <link rel="stylesheet" href="{% static 'css/transactions.css' %}">
+   <script src="{% static 'js/transactions.js' %}"></script>
+{% endblock %}
+{% block main %}
+<section class="sec sec1">
+    <h2>Your Withdrawals</h2>
+    <form action="#">
+        <input type="search" placeholder="search by date...">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <div class="product-list list">
+        <table>
+            <tr>
+                <th>Ref code.</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>siubbefwefe</td>
+                <td>200</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>sdvfvvrdootos</td>
+                <td>200</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>Bootyshorts</td>
+                <td>200</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>Brdfbuidrbferts</td>
+                <td>200</td>
+                <td>200</td>
+            </tr>
+        </table>
+    </div>
+    <div class="bal">
+        <h4>Account balance(Ksh): 5502544144/=</h4>
+    </div>
+</section>
+<section class="sec sec2">
+    <h2>Transactions made to you</h2>
+    <form action="#">
+        <input type="search" placeholder="search by phone number...">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <div class="item-list list">
+        <table>
+            <tr>
+                <th>Ref code.</th>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Amount(Ksh)</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>sbdeueinwif</td>
+                <td>Samuel</td>
+                <td>0757077058</td>
+                <td>2000</td>
+                <td>2nd August, 2032</td>
+            </tr>
+            <tr>
+                <td>ffsdfueinwif</td>
+                <td>Samuel Njuguna</td>
+                <td>0757077058</td>
+                <td>1000</td>
+                <td>3nd Dec, 2032</td>
+            </tr>
+            <tr>
+                <td>dsgsrinwif</td>
+                <td>Samuel</td>
+                <td>0757077058</td>
+                <td>2000</td>
+                <td>2nd August, 2032</td>
+            </tr>
+            <tr>
+                <td>jfdifdueinwif</td>
+                <td>Sanju</td>
+                <td>0757077058</td>
+                <td>1500</td>
+                <td>2nd August, 2024</td>
+            </tr>
+            <tr>
+                <td>dscvuydeueinwif</td>
+                <td>James</td>
+                <td>0757077058</td>
+                <td>200</td>
+                <td>5th August, 2032</td>
+            </tr>
+        </table>
+    </div>
+</section>
+</main>
+{% endblock %}

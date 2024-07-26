@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.getElementById("login-container");
+            // Render the login form
+            const formHTML = `
+                <span id="logo"><img height=50px width=50px src={{ image.image.url }} /></span>
+
+                <form id="login-form" method="post" action="{% url 'login' %}">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <label for="username" id="first_label">Username:</label>
+                    <input type="text" id="username" name="username" required><br><br>
+
+                    <label for="password" id="second_label">Password:</label>
+                    <input type="password" id="password" name="password" required><br><br>
+
+                    <button type="submit">LOG IN</button>
+                </form>
+                <div id="message-container"></div>
+            `;
+            container.innerHTML = formHTML;
+        });
+        function updatePattern() {
+            const svg = document.getElementById('svgPattern');
+            const pattern = document.getElementById('dotPattern');
+
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            pattern.setAttribute('width', 200);
+            pattern.setAttribute('height', 200);
+        }
+
+        window.addEventListener('resize', updatePattern);
+        window.addEventListener('DOMContentLoaded', updatePattern);
+    </script>
+</head>
+<body>
+<svg id="svgPattern" width="100%" height="100%">
+        <defs>
+            <pattern id="dotPattern" patternUnits="userSpaceOnUse" width="200" height="200">
+                <line x1="100" y1="0" x2="0" y2="100" stroke="var(--pattern-color)" stroke-width="0.5"/>
+                <line x1="100" y1="0" x2="200" y2="100" stroke="var(--pattern-color)" stroke-width="0.5"/>
+                <line x1="200" y1="100" x2="100" y2="200" stroke="var(--pattern-color)" stroke-width="0.5"/>
+                <line x1="0" y1="100" x2="100" y2="200" stroke="var(--pattern-color)" stroke-width="0.5"/>
+                <circle cx="100" cy="100" r="5" fill="var(--pattern-color)"/>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dotPattern)" />
+    </svg>
+    <div id="login-container"></div>
+    <div class="dev-section">powered by JSM</div>
+
+    {% if messages %}
+        <div id="message-container">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+</body>
+</html>
