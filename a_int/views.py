@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import Media, Business, Product, Item
+from .models import Media, Business, Product, Item, MainAccount, MainTransactions
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import ProdForm, ItemForm
+from a_int.payment.core import TransactionManager
+from django.http import HttpResponse
 
 @login_required
 def dashboard(request):
@@ -109,3 +111,23 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+def test(request):
+    business = Business.objects.get(name='Liquor')
+    account = MainAccount.objects.get(Name='Till')
+    amount = 5025
+    tm = TransactionManager(
+        model=MainTransactions(),  # Pass the class itself, not an instance
+        business_id=business.business_id,
+        account=account,
+        name='Samuel',
+        number=254757077058,
+        ref_code='nfuhfuhf',
+        item_id='nfuhfuhf',
+        amount=amount,
+        commission=2,
+        credit=amount,
+        debit=0
+    )
+    tm.save()
+    return HttpResponse('Done')
