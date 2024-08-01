@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import ProdForm, ItemForm
-from a_int.payment.core import TransactionManager
+from a_int.payment.core import TransactionsManager
 from django.http import HttpResponse
 
 @login_required
@@ -114,20 +114,12 @@ def logout_user(request):
 
 def test(request):
     business = Business.objects.get(name='Liquor')
-    account = MainAccount.objects.get(Name='Till')
-    amount = 5025
-    tm = TransactionManager(
-        model=MainTransactions(),  # Pass the class itself, not an instance
-        business_id=business.business_id,
-        account=account,
-        name='Samuel',
-        number=254757077058,
-        ref_code='nfuhfuhf',
-        item_id='nfuhfuhf',
-        amount=amount,
-        commission=2,
-        credit=amount,
-        debit=0
-    )
-    tm.save()
+    tm = TransactionsManager(business_id=business.business_id, ref_code='nuufbuf', name='Samuel', number=254757077058, amount=1520, item_id='ufdhufdbdf')
+    tm.mainTransc()
     return HttpResponse('Done')
+
+def test1(request):
+    business = Business.objects.get(name='Liquor')
+    tm = TransactionsManager(business_id=business.business_id, ref_code='hufhufb', amount='2012', item_id='A withdraw trasaction')
+    tm.mainTransc()
+    return HttpResponse('Withdraw successfull')
