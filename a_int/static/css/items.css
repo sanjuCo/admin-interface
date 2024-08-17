@@ -1,14 +1,31 @@
 /* I work on the two sections */
+.title, .path{
+    height: 5vh;
+    width: 99%;
+    background-color: #a50000;
+    margin: 1vh 0 1vh 1%;
+    display: flex;
+    align-items: center;
+    padding: 0 2vh;
+    color: #ffffff;
+}
+.wrapper{
+    display: flex;
+}
+
 main .sec{
-    height: 80vh;
-    width: 49%;
-    margin-left: 1%;
+    height: 75vh;
+    width: 49.5%;
+    margin-left: 0.5%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #95a5a6;
-    padding: 10px 20px;
+    justify-content: space-evenly;
+}
+main .sec1{
+    width: 40%;
+}
+main .sec2{
+    width: 59%;
 }
 main .sec div{
     width: 100%;
@@ -18,8 +35,10 @@ main .sec .list{
     height: 60vh;
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: flex-start;
+    gap: 1vh;
     overflow: auto;
 }
 table {
@@ -44,9 +63,10 @@ td:nth-child(2){
 td img{
     height: 50px;
     width: 50px;
+    object-fit: contain;
 }
 th{
-    background-color: #2c3e50;
+    background-color: #002850;
     color: #ffffff;
     font-weight: bold;
 }
@@ -72,10 +92,10 @@ main .sec div button:hover{
 }
 
 main .sec div .add{
-    background-color: #27ae60;
+    background-color: #0cac4e;
 }
 main .sec div .del{
-    background-color: #e74c3c;
+    background-color: #e2321f;
 }
 
 
@@ -155,6 +175,7 @@ main .sec div .del{
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    gap: 1vh;
     padding: 20px 10px;
     font-size: 18px;
     background-color: #2c3e50;
@@ -169,8 +190,8 @@ main .sec div .del{
     display: block;
 }
 .del-modal input[type='checkbox']{
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
 }
 .del-modal button{
     height: 30px;

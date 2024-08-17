@@ -14,9 +14,25 @@
 <body>
     {% block extend %}
     <header>
-        <img src="{{business.logo.url}}" alt="Business Logo">
-        <h1>{{business.name}}</h1>
+        <div class="logo-name">
+            <img src="{{business.logo.url}}" alt="Business Logo">
+            <h1>{{business.name}}</h1>
+        </div>
+        <div class="search-admin">
+            <form action="#">
+                <input type="search" placeholder="Search for anything...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
         <div class="extras">
+            <div class="notification">
+                <i class="far fa-bell"></i>
+                <p>20</p>
+            </div>
+            <div class="notification">
+                <i class="far fa-message"></i>
+                <p>20</p>
+            </div>
             <a href="{% url 'logout' %}">logout</a>
             <a href="#" class="feedback">Feedback</a>
             <a href="{% url 'documentation' %}">Documentation</a>
@@ -25,20 +41,25 @@
     <main>
         <!-- Navigation sidebar -->
         <aside>
-            <div class="navs">
+            <div class="as-containers">
+                <h3>Navigations</h3>
                 <a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="{% url 'dashboard' %}"><i class="fas fa-home"></i> Business Page</a>
+            </div>
+            <div class="as-containers">
+                <h3>Management</h3>
                 <a href="{% url 'items' %}"><i class="fas fa-plus-circle"></i> Manage Items</a>
                 <a href="{% url 'transactions' %}"><i class="fas fa-exchange-alt"></i> Transactions</a>
+            </div>
+            <div class="as-containers">
+                <h3>Actions/Preliminaries</h3>
                 <a href="#" class="withdraw"><i class="fas fa-arrow-down"></i> Withdraw</a>
                 <a href="{% url 'stats' %}"><i class="fas fa-chart-bar"></i> Stats</a>
             </div>
-            <div class="profile">
-                <div class="profile-modal">
-                    <a href="#"><i class="fas fa-eye"></i> View profile</a>
-                    <a href="#"><i class="fas fa-user-edit"></i> Edit profile</a>
-                    <a href="#"><i class="fas fa-sign-out-alt"></i> logout</a>
-                </div>
+            <div class="as-containers">
+                <h3>Account</h3>
                 <a href="#" id="profile"><i class="fas fa-user"></i> profile</a>
+                <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> logout</a>
             </div>
         </aside>
         <!-- Withdraw modal -->

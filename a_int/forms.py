@@ -18,8 +18,8 @@ class ItemForm(forms.ModelForm):
             'stock': forms.NumberInput(attrs={'placeholder': 'number in stock'}),
         }
 
-        def __init__(self, *args, **kwargs):
-            user = kwargs.pop('user', None) 
-            super().__init__(*args, **kwargs)
-            if user is not None:
-                self.fields['product'].queryset = Product.objects.filter(business__administrator=user)
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None) 
+        super().__init__(*args, **kwargs)
+        if user is not None:
+            self.fields['product'].queryset = Product.objects.filter(business__administrator=user)

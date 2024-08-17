@@ -10,87 +10,119 @@ body{
 }
 header{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 0 5vh;
     align-items: center;
-    height: 15vh;
-    background-color: #ecf0f1;
+    height: 10vh;
+    background-color: #ffffff;
+    box-shadow: 10px 10px 100px #000000;
+    color: #000000;
 }
-header img{
+header .logo-name{
+    height: 100%;
+    display: flex;
+    gap: 5vh;
+    align-items: center;
+    color: #34495E;
+}
+header .logo-name img{
     height: 80%;
     width: auto;
 }
-header h1{
-    color: #000000;
+header .search-admin{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    gap: 1vh;
+    align-items: center;
+}
+header .search-admin form{
+    width: 100%;
+}
+header .search-admin form input[type='search']{
+    width: 70%;
+    height: 30px;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    padding: 0 2px;
+    border-bottom: 1px solid #16A085;
+}
+header .search-admin form input[type='search']::placeholder{
+    color: #7F8C8D;
+}
+header .search-admin form button{
+    height: 30px;
+    width: 30px;
+    font-size: 15px;
+    border: none;
+    background-color: inherit;
+}
+header .search-admin form button:hover{
+    cursor: pointer;
+    background-color: #e6e6e6;
+}
+header .extras .notification{
+    color: #95a5a6;
+    position: relative;
+}
+header .extras .notification p{
+    position: absolute;
+    top: -2vh;
+    background-color: #95a5a6;
+    color: white;
+    border-radius: 50%;
+    padding: 3px;
+    font-size: 10px;
 }
 header .extras{
     display: flex;
-    gap: 2vh;
+    gap: 5vh;
+}
+header .extras a{
+    color: #E74C3C;
 }
 main{
     position: relative;
-    width: 98%;
+    width: 100%;
     margin: 0 auto;
     padding: 1vh 0 0 20%;
-    display: flex;
+    background-color: #ECF0F1;
 }
 main aside{
     position: absolute;
     top: 1vh;
     left: 0;
     width: 20%;
-    height: 80vh;
-    background-color: #2c3e50;
+    height: 89vh;
+    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: center;
 }
-main aside .navs{
+main aside .as-containers{
+    background-color: #ececec;
+    height: 23%;
+    width: 90%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 20px;
-    gap: 5vh;
-    font-size: 24px;
-}
-main aside .navs a{
-    text-decoration: none;
-    color: #ffffff;
-}
-main aside .navs a:hover{
-    text-decoration: underline;
-}
-main aside .profile{
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-    padding: 0 20px;
-}
-main aside .profile a{
-    cursor: pointer;
-    font-size: 24px;
-    color: #ffffff;
-    text-decoration: none;
-}
-main aside .profile a:hover{
-    text-decoration: underline;
-}
-.profile-modal{
-    position: absolute;
-    bottom: 35px;
-    right: 20px;
-    width: auto;
-    padding: 5px;
-    display: none;
     flex-direction: column;
     justify-content: space-evenly;
-    gap: 10px;
-    background-color: #2c3e50;
-    color: #ffff;
-    box-shadow: 1px 1px 2px #e67e22, -1px -1px 2px #e67e22;
-    border-radius: 10px;
-    z-index: 100;
+    padding: 2vh;
 }
+main aside .as-containers a{
+    text-decoration: none;
+    color: #5a2f09;
+    margin: 0 2vh;
+    font-size: 18px;
+}
+main aside .as-containers a:hover{
+    text-decoration: underline;
+}
+main aside .as-containers h3{
+    color: #a50a0a;
+}
+
 
 /* Withdraw modal */
 .withdraw-modal{

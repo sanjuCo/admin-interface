@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect
-from .models import Media, Business, Product, Item, MainAccount, MainTransactions
+from .models import Media, Business, Product, Item, BusinessAccount, BusinessTransactions
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import ProdForm, ItemForm
 from a_int.payment.core import TransactionsManager
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from urllib.parse import parse_qs
+from django.forms.models import model_to_dict
 
 @login_required
 def dashboard(request):
@@ -25,7 +28,7 @@ def items(request):
     if admin.is_authenticated:
         business = Business.objects.get(administrator=admin)
     prod_form = ProdForm()
-    item_form = ItemForm()
+    item_form = ItemForm(user=request.user)
     products = Product.objects.filter(business=business)
     items = Item.objects.filter(product__business__administrator=admin)
     context = {
@@ -62,7 +65,7 @@ def delProd(request):
 
 def addItem(request):
     if request.method == 'POST':
-        item_form = ItemForm(request.POST, request.FILES, user=request.user)
+        item_form = ItemForm(request.POST, request.FILES)
         print(request.FILES)
         if item_form.is_valid():
             item_form.save()
@@ -82,7 +85,99 @@ def delItem(request):
 
 @login_required
 def transactions(request):
-    return render(request, 'transactions.html',)
+    """
+    Pass transaction objects as context to the transactions.html template.
+    """
+    admin = request.user
+    try:
+        business = Business.objects.get(administrator=admin)
+        account = business.account
+        transactions = BusinessTransactions.objects.filter(account=account)
+        gen_transc = []
+        wit_transc = []
+        for transaction in transactions:
+            if transaction.item_id == 'A withdraw trasaction':
+                wit_transc.append(transaction)
+            else:
+                gen_transc.append(transaction)
+    except Business.DoesNotExist:
+        business = None
+        account = None
+        transactions = None
+        gen_transc = None
+        wit_transc = None
+
+    context = {
+        'admin': admin,
+        'business': business,
+        'account': account,
+        'transactions': transactions,
+        'wit_transc': wit_transc,
+        'gen_transc': gen_transc
+    }
+    return render(request, 'transactions.html', context)
+
+def search(request):
+    """
+    We want to create a search function that allows searching by ref_code or by
+    date. The results are appended to a list depending on whether they are
+    generic business transactions or withdraw transactions.
+    ----------
+    How the function works:
+    
+    """
+    import platform
+    from datetime import datetime
+    date_format = '%b. %-d, %Y, %-I:%M %p' if platform.system() != 'Windows' else '%b. %#d, %Y, %#I:%M %p'
+    admin = request.user
+    form = request.GET.get('$formData')
+    if form:
+        parsed = parse_qs(form)
+        query = parsed.get('query')[0] if parsed.get('query') else None \
+                or \
+                parsed.get('date')[0] if parsed.get('date') else None
+        type = parsed.get('transc_type')[0]
+
+    try:
+        business = Business.objects.get(administrator=admin)
+        if 'date' in parsed:
+            naive_datetime = datetime.strptime(query, '%Y-%m-%d')
+            active_date = naive_datetime.date()
+            transactions = BusinessTransactions.objects.filter(business_id=business.business_id, date__date=active_date)
+        else:
+            transactions = BusinessTransactions.objects.filter(business_id=business.business_id, ref_code=query)
+        gen_transc = []
+        wit_transc = []
+        for transaction in transactions:
+            if transaction.item_id == 'A withdraw trasaction':
+                wit_transc.append(transaction)
+            else:
+                gen_transc.append(transaction)
+        
+        if type == 'wit_transc':
+            sr_wit_transc = [{'ref_code': transaction.ref_code,'amount': transaction.amount,
+                              'date': transaction.date.strftime(date_format).replace('AM', 'a.m.').replace('PM', 'p.m.')} 
+                              for transaction in wit_transc]
+            context = {
+                'status': 200,
+                'wit_transc': sr_wit_transc,
+            }
+        else:
+            sr_gen_transc = [{'ref_code': transaction.ref_code,'name': transaction.name,
+                              'number': transaction.number,'amount': transaction.amount,
+                              'date': transaction.date.strftime(date_format).replace('am', 'a.m.').replace('pm', 'p.m.')} 
+                              for transaction in gen_transc]
+            context = {
+                'status': 200,
+                'gen_transc': sr_gen_transc,
+            }
+
+    except Business.DoesNotExist:
+        return JsonResponse({'status': 404})
+    
+    return JsonResponse(context)
+    
+
 
 @login_required
 def stats(request):
@@ -123,3 +218,5 @@ def test1(request):
     tm = TransactionsManager(business_id=business.business_id, ref_code='hufhufb', amount='2012', item_id='A withdraw trasaction')
     tm.mainTransc()
     return HttpResponse('Withdraw successfull')
+
+
